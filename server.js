@@ -13,13 +13,13 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
-// ── Conexión MySQL (ajusta si tu contraseña de MySQL es distinta)
+// ── Conexión MySQL con variables de entorno para producción
 const pool = mysql.createPool({
-  host:     'localhost',
-  port:      3306,
-  user:     'root',
-  password: '',           // contraseña de MySQL en XAMPP (por defecto vacía)
-  database: 'bd_inscripciones_ico',
+  host: process.env.MYSQL_HOST || 'localhost',
+  port: process.env.MYSQL_PORT || 3306,
+  user: process.env.MYSQL_USER || 'root',
+  password: process.env.MYSQL_PASSWORD || '',
+  database: process.env.MYSQL_DATABASE || 'bd_inscripciones_ico',
   waitForConnections: true,
   connectionLimit: 10,
 });
